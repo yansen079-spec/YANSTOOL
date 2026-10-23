@@ -10,7 +10,36 @@ $$('.filter').forEach(b=>b.onclick=()=>{$$('.filter').forEach(x=>x.classList.rem
 
 const dlg=$('#toolDialog'), body=$('#toolBody'), title=$('#dialogTitle'); $('#closeDialog').onclick=()=>dlg.close();
 const money=n=>new Intl.NumberFormat('id-ID').format(Number(n||0));
-function show(name,html,setup){title.textContent=name;body.innerHTML=html;dlg.showModal(); if(setup) setup();}
+function show(name,html,setup){
+  title.textContent=name;
+  body.innerHTML=html+'<div class="tool-actions"><button type="button" class="btn ghost tool-copy">📋 Copy Result</button><button type="button" class="btn ghost tool-reset">↻ Reset</button></div>';
+  dlg.showModal();
+  if(setup) setup();
+  const copyBtn=body.querySelector('.tool-copy'),resetBtn=body.querySelector('.tool-reset');
+  copyBtn.onclick=async()=>{
+    const result=body.querySelector('.result-box');
+    const text=result?result.innerText.trim():'';
+    if(!text||/(-|belum dibuat|belum diproses)$/i.test(text)){
+      copyBtn.textContent='Belum ada hasil';
+      setTimeout(()=>copyBtn.textContent='📋 Copy Result',1200);
+      return;
+    }
+    try{
+      await navigator.clipboard.writeText(text);
+      copyBtn.textContent='✓ Tersalin';
+    }catch(e){
+      copyBtn.textContent='Gagal menyalin';
+    }
+    setTimeout(()=>copyBtn.textContent='📋 Copy Result',1400);
+  };
+  resetBtn.onclick=()=>{
+    const activeTool=[...$('.open-tool')].find(b=>b.dataset.tool&&tools[b.dataset.tool]&&title.textContent===b.closest('.card')?.querySelector('h3')?.textContent);
+    if(activeTool){dlg.close();tools[activeTool.dataset.tool]();return}
+    body.querySelectorAll('input,textarea').forEach(el=>{if(el.type==='checkbox'||el.type==='radio')el.checked=el.defaultChecked;else el.value=el.defaultValue});
+    body.querySelectorAll('select').forEach(el=>el.selectedIndex=0);
+    const result=body.querySelector('.result-box');if(result)result.textContent='Hasil: -';
+  };
+}
 
 const tools={
  gpa(){show('IPK Calculator',`<div id="courses"><div class="row"><div class="field"><label>SKS</label><input class="sks" type="number" value="3"></div><div class="field"><label>Nilai (0-4)</label><input class="grade" type="number" step="0.01" value="4"></div></div></div><button id="addCourse" class="btn ghost">+ Mata Kuliah</button> <button id="calcGpa" class="btn primary">Hitung</button><div id="gpaRes" class="result-box">IP: -</div>`,()=>{$('#addCourse').onclick=()=>$('#courses').insertAdjacentHTML('beforeend',`<div class="row"><div class="field"><label>SKS</label><input class="sks" type="number" value="3"></div><div class="field"><label>Nilai (0-4)</label><input class="grade" type="number" step="0.01" value="3.5"></div></div>`);$('#calcGpa').onclick=()=>{let pts=0,sks=0;$$('.sks').forEach((x,i)=>{let s=+x.value||0,g=+$$('.grade')[i].value||0;sks+=s;pts+=s*g});$('#gpaRes').textContent='IP: '+(sks?pts/sks:0).toFixed(2)}})},
