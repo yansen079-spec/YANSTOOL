@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Yan Vault — YANSTOOL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="vault.css">
+</head>
+<body>
+<header class="topbar"><a class="brand" href="index.html">YANSTOOL<span>.vercel.app</span></a><nav><a href="index.html#tools">Tools</a><a href="index.html#arcade">Games</a><a href="vault.html">Vault</a></nav><button id="themeToggle" class="icon-btn">🌙</button></header>
+<main class="vault-page">
+<section class="vault-hero"><div class="badge">🔐 PRIVATE SPACE</div><h1>Yan <span>Vault</span></h1><p>Simpan catatan dan data pribadi di akunmu. Setiap pengguna hanya dapat mengakses data miliknya sendiri.</p></section>
+<section id="vaultSetup" class="vault-panel setup-note" hidden><h2>Vault belum dihubungkan</h2><p>Konfigurasi Supabase YANSTOOL belum dipasang. Setelah URL dan anon key ditambahkan, daftar/login akan aktif.</p></section>
+<section id="authPanel" class="vault-panel">
+<div class="auth-tabs"><button class="auth-tab active" data-mode="login">Masuk</button><button class="auth-tab" data-mode="signup">Daftar</button></div>
+<h2 id="authTitle">Masuk ke Vault</h2><p class="muted" id="authDesc">Gunakan email dan password akunmu.</p>
+<form id="authForm"><div class="field"><label>Email</label><input id="vaultEmail" type="email" autocomplete="email" required placeholder="nama@email.com"></div><div class="field"><label>Password</label><input id="vaultPassword" type="password" autocomplete="current-password" minlength="6" required placeholder="Minimal 6 karakter"></div><button class="btn primary vault-full" id="authSubmit">Masuk 🔐</button></form><div id="authMessage" class="vault-message"></div>
+</section>
+<section id="vaultApp" class="vault-panel" hidden>
+<div class="vault-toolbar"><div><span class="eyebrow">YAN VAULT</span><h2>Data Saya</h2><small id="vaultUser" class="muted"></small></div><button id="vaultLogout" class="btn ghost">Keluar</button></div>
+<div class="vault-add"><input id="vaultSearch" type="search" placeholder="Cari data..."><button id="newVaultItem" class="btn primary">+ Tambah Data</button></div>
+<div id="vaultItems" class="vault-items"></div>
+</section>
+</main>
+<dialog id="vaultDialog"><div class="dialog-head"><h3 id="vaultDialogTitle">Tambah Data</h3><button id="vaultClose" class="icon-btn">✕</button></div><form id="vaultForm" class="vault-form"><input id="vaultId" type="hidden"><div class="field"><label>Judul</label><input id="vaultTitle" maxlength="120" required placeholder="Contoh: Catatan penting"></div><div class="field"><label>Kategori</label><input id="vaultCategory" maxlength="60" placeholder="Contoh: Personal, Link, Catatan"></div><div class="field"><label>Isi / Data</label><textarea id="vaultContent" maxlength="20000" required placeholder="Tulis data yang ingin disimpan..."></textarea></div><button class="btn primary vault-full">Simpan</button></form></dialog>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="vault-config.js"></script><script src="vault.js"></script>
+</body></html>
