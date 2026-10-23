@@ -32,7 +32,7 @@ const tools={
  timestamp(){show('Timestamp Converter',`<div class="field"><label>Unix timestamp (detik)</label><input id="tsVal" type="number"></div><button id="tsNow" class="btn ghost">Isi waktu sekarang</button> <button id="tsCalc" class="btn primary">Konversi</button><div id="tsRes" class="result-box">Hasil: -</div>`,()=>{$('#tsNow').onclick=()=>$('#tsVal').value=Math.floor(Date.now()/1000);$('#tsCalc').onclick=()=>{let v=+$('#tsVal').value;$('#tsRes').textContent=v?new Date(v*1000).toLocaleString('id-ID'):'Masukkan timestamp.'}})},
  pomodoro(){show('Pomodoro Timer',`<div class="field"><label>Menit fokus</label><input id="pmMin" type="number" min="1" max="120" value="25"></div><div id="pmRes" class="result-box" style="font-size:32px;text-align:center">25:00</div><div class="row"><button id="pmStart" class="btn primary">Start</button><button id="pmReset" class="btn ghost">Reset</button></div>`,()=>{let timer=null,left=1500;const draw=()=>$('#pmRes').textContent=String(Math.floor(left/60)).padStart(2,'0')+':'+String(left%60).padStart(2,'0');const reset=()=>{clearInterval(timer);timer=null;left=(+$('#pmMin').value||25)*60;draw()};$('#pmMin').onchange=reset;$('#pmReset').onclick=reset;$('#pmStart').onclick=()=>{if(timer)return;timer=setInterval(()=>{if(left>0){left--;draw()}else{clearInterval(timer);timer=null;$('#pmRes').textContent='Selesai! 🎉'}},1000)}})}
 };
-$('.open-tool').forEach(b=>b.onclick=()=>tools[b.dataset.tool]());
+$$('.open-tool').forEach(b=>b.onclick=()=>tools[b.dataset.tool]());
 
 $('#aiRun').onclick=async()=>{
   const input=$('#aiInput').value.trim(); if(!input){$('#aiResult').textContent='Masukkan teks dulu.';return}
