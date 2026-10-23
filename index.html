@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Yanstool — Free Tools & AI</title>
+  <meta name="description" content="Yanstool — kumpulan tools gratis dan AI sederhana untuk belajar, kerja, dan kebutuhan sehari-hari." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top">YANSTOOL<span>.my.id</span></a>
+    <nav>
+      <a href="#tools">Tools</a>
+      <a href="#ai">Yan AI</a>
+      <a href="#about">Tentang</a>
+    </nav>
+    <button id="themeToggle" class="icon-btn" aria-label="Toggle tema">🌙</button>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="badge">⚡ Gratis • Cepat • Tanpa Login</div>
+      <h1>Tools kecil.<br><span>Bantu banyak.</span></h1>
+      <p>Kalkulator, converter, generator, student tools, developer tools, dan Yan AI — semuanya dalam satu tempat.</p>
+      <div class="search-wrap">
+        <input id="searchInput" type="search" placeholder="Cari tools... contoh: IPK, diskon, kata" />
+      </div>
+      <div class="hero-actions">
+        <a class="btn primary" href="#tools">Lihat Semua Tools</a>
+        <a class="btn ghost" href="#ai">Coba Yan AI</a>
+      </div>
+    </section>
+
+    <section id="tools" class="section">
+      <div class="section-head">
+        <div><span class="eyebrow">TOOLS</span><h2>Semua yang sering dibutuhkan</h2></div>
+        <div class="filters" id="filters">
+          <button class="filter active" data-filter="all">Semua</button>
+          <button class="filter" data-filter="student">Student</button>
+          <button class="filter" data-filter="daily">Daily</button>
+          <button class="filter" data-filter="text">Text</button>
+          <button class="filter" data-filter="dev">Developer</button>
+        </div>
+      </div>
+
+      <div class="grid" id="toolGrid">
+        <article class="card" data-cat="student" data-name="ipk calculator mahasiswa">
+          <div class="emoji">🎓</div><h3>IPK Calculator</h3><p>Hitung IP dan IPK dari SKS dan nilai mata kuliah.</p>
+          <button class="open-tool" data-tool="gpa">Buka Tool →</button>
+        </article>
+        <article class="card" data-cat="daily" data-name="percentage persen kalkulator">
+          <div class="emoji">📊</div><h3>Percentage Calculator</h3><p>Hitung persentase dari dua angka dengan cepat.</p>
+          <button class="open-tool" data-tool="percentage">Buka Tool →</button>
+        </article>
+        <article class="card" data-cat="daily" data-name="discount diskon harga">
+          <div class="emoji">🏷️</div><h3>Discount Calculator</h3><p>Hitung harga setelah diskon.</p>
+          <button class="open-tool" data-tool="discount">Buka Tool →</button>
+        </article>
+        <article class="card" data-cat="text" data-name="word counter karakter kata">
+          <div class="emoji">✍️</div><h3>Word Counter</h3><p>Hitung kata, karakter, kalimat, dan estimasi waktu baca.</p>
+          <button class="open-tool" data-tool="wordcount">Buka Tool →</button>
+        </article>
+        <article class="card" data-cat="text" data-name="case converter huruf besar kecil uppercase lowercase">
+          <div class="emoji">🔠</div><h3>Case Converter</h3><p>Ubah teks ke UPPERCASE, lowercase, atau Title Case.</p>
+          <button class="open-tool" data-tool="case">Buka Tool →</button>
+        </article>
+        <article class="card" data-cat="daily" data-name="random name picker nama acak">
+          <div class="emoji">🎲</div><h3>Random Name Picker</h3><p>Pilih nama secara acak dari daftar.</p>
+          <button class="open-tool" data-tool="random">Buka Tool →</button>
+        </article>
+        <article class="card" data-cat="dev" data-name="password generator kata sandi">
+          <div class="emoji">🔐</div><h3>Password Generator</h3><p>Buat password acak dengan panjang pilihanmu.</p>
+          <button class="open-tool" data-tool="password">Buka Tool →</button>
+        </article>
+        <article class="card" data-cat="daily" data-name="storage converter kb mb gb tb">
+          <div class="emoji">💾</div><h3>Storage Converter</h3><p>Konversi KB, MB, GB, dan TB.</p>
+          <button class="open-tool" data-tool="storage">Buka Tool →</button>
+        </article>
+      </div>
+    </section>
+
+    <section id="ai" class="section ai-section">
+      <div class="ai-panel">
+        <div>
+          <span class="eyebrow">YAN AI</span>
+          <h2>Asisten AI gratis untuk tugas ringan.</h2>
+          <p>UI-nya sudah siap. Untuk AI sungguhan, sambungkan endpoint <code>/api/ai</code> ke provider pilihanmu agar API key tetap aman di server.</p>
+          <div class="chips"><span>Summarizer</span><span>Paraphraser</span><span>Grammar Fixer</span><span>Study Helper</span><span>Caption Generator</span></div>
+        </div>
+        <div class="ai-box">
+          <select id="aiMode">
+            <option value="summarize">Ringkas teks</option>
+            <option value="paraphrase">Parafrase</option>
+            <option value="grammar">Perbaiki grammar</option>
+            <option value="explain">Jelaskan sederhana</option>
+          </select>
+          <textarea id="aiInput" placeholder="Masukkan teks di sini..."></textarea>
+          <button id="aiRun" class="btn primary">Jalankan Yan AI ✨</button>
+          <div id="aiResult" class="result muted">Belum ada hasil.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section about">
+      <span class="eyebrow">YANSTOOL</span>
+      <h2>Dibuat supaya hal sederhana tidak perlu ribet.</h2>
+      <p>Mayoritas tools berjalan langsung di browser. Tanpa akun, tanpa instalasi, dan tanpa menyimpan input pengguna.</p>
+    </section>
+  </main>
+
+  <footer>© <span id="year"></span> Yanstool.my.id • Free tools by Yan.</footer>
+
+  <dialog id="toolDialog">
+    <div class="dialog-head"><h3 id="dialogTitle">Tool</h3><button id="closeDialog" class="icon-btn">✕</button></div>
+    <div id="toolBody"></div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
