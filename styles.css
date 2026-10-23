@@ -194,3 +194,14 @@ dialog::backdrop{
   #toolBody{padding:18px;max-height:calc(90vh - 76px)}
   #toolBody .btn{width:100%;margin-bottom:8px}
 }
+
+.tool-actions{
+  display:flex;gap:10px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)
+}
+.tool-actions .btn{
+  flex:1;background:color-mix(in srgb,var(--surface) 88%,var(--accent));color:var(--text)
+}
+.tool-actions .btn:hover{
+  border-color:color-mix(in srgb,var(--accent) 35%,var(--line));background:var(--accent-soft)
+}
+@media(max-width:560px){.tool-actions{flex-direction:column;gap:4px}}
