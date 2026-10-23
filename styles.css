@@ -219,3 +219,9 @@ dialog::backdrop{
 .aim-arena{position:relative;height:380px;overflow:hidden;border-radius:22px;border:1px solid var(--line);background:radial-gradient(circle at center,var(--accent-soft),var(--surface-2));display:grid;place-items:center}.aim-target{position:absolute;width:54px;height:54px;border:9px solid #ef4444;background:#fff;border-radius:50%;cursor:crosshair;box-shadow:inset 0 0 0 7px #fff}.aim-target::after{content:"";position:absolute;width:12px;height:12px;background:#ef4444;border-radius:50%;left:12px;top:12px}.aim-finish{display:grid;gap:12px;text-align:center;font-size:18px}
 @media(max-width:900px){.arcade-grid{grid-template-columns:1fr}.game-card p{min-height:0}}
 @media(max-width:560px){.reaction-pad{min-height:250px}.aim-arena{height:330px}}
+
+.image-privacy{margin-bottom:18px;padding:11px 13px;border-radius:13px;background:var(--accent-soft);color:var(--muted);font-size:12px;border:1px solid color-mix(in srgb,var(--accent) 18%,var(--line))}
+.image-check{display:flex;align-items:center;gap:9px;margin:-2px 0 18px;color:var(--muted);font-size:13px}.image-check input{accent-color:var(--accent);width:17px;height:17px}
+.image-result{display:grid;grid-template-columns:minmax(100px,180px) 1fr;align-items:center;gap:18px}.image-result img{width:100%;max-height:180px;object-fit:contain;background:repeating-conic-gradient(color-mix(in srgb,var(--muted) 10%,transparent) 0 25%,transparent 0 50%) 50%/18px 18px;border:1px solid var(--line)}.image-download{margin-top:12px}
+input[type="range"]{accent-color:var(--accent)}
+@media(max-width:560px){.image-result{grid-template-columns:1fr}.image-result img{max-height:220px}}
