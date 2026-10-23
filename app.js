@@ -84,3 +84,43 @@ $('#aiRun').onclick=async()=>{
     const data=await r.json(); $('#aiResult').textContent=data.output||'Tidak ada hasil.';
   }catch(e){$('#aiResult').textContent='Yan AI belum disambungkan ke provider. Tools biasa tetap bisa digunakan sepenuhnya.'}
 };
+const gameBest={
+  snake:+localStorage.getItem('yanSnakeBest')||0,
+  reaction:+localStorage.getItem('yanReactionBest')||0,
+  aim:+localStorage.getItem('yanAimBest')||0
+};
+function drawGameBest(){
+  $('#snakeBest').textContent=gameBest.snake;
+  $('#reactionBest').textContent=gameBest.reaction?gameBest.reaction+' ms':'-';
+  $('#aimBest').textContent=gameBest.aim;
+}
+drawGameBest();
+
+function gameModal(name,html,setup){
+  title.textContent=name;body.innerHTML=html;dlg.showModal();if(setup)setup();
+}
+function snakeGame(){
+  gameModal('🐍 Snake',`<div class="game-hud"><b>Score: <span id="snakeScore">0</span></b><span>Best: ${gameBest.snake}</span></div><canvas id="snakeCanvas" class="game-canvas" width="360" height="360"></canvas><div class="snake-controls"><button data-d="up">▲</button><div><button data-d="left">◀</button><button data-d="down">▼</button><button data-d="right">▶</button></div></div><button id="snakeRestart" class="btn primary game-restart">Mulai / Ulang</button>`,()=>{
+    const cv=$('#snakeCanvas'),ctx=cv.getContext('2d'),size=18,cells=20;let snake,dir,next,food,score,timer;
+    const spawn=()=>{do{food={x:Math.floor(Math.random()*cells),y:Math.floor(Math.random()*cells)}}while(snake.some(p=>p.x===food.x&&p.y===food.y))};
+    const draw=()=>{ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--surface-2');ctx.fillRect(0,0,360,360);ctx.fillStyle='#6d4aff';snake.forEach(p=>ctx.fillRect(p.x*size+1,p.y*size+1,size-2,size-2));ctx.fillStyle='#ef4444';ctx.beginPath();ctx.arc(food.x*size+9,food.y*size+9,6,0,Math.PI*2);ctx.fill()};
+    const start=()=>{clearInterval(timer);snake=[{x:10,y:10},{x:9,y:10},{x:8,y:10}];dir=next={x:1,y:0};score=0;$('#snakeScore').textContent=0;spawn();draw();timer=setInterval(step,115)};
+    const turn=d=>{const m={up:{x:0,y:-1},down:{x:0,y:1},left:{x:-1,y:0},right:{x:1,y:0}},n=m[d];if(n.x!==-dir.x||n.y!==-dir.y)next=n};
+    const step=()=>{dir=next;const h={x:snake[0].x+dir.x,y:snake[0].y+dir.y};if(h.x<0||h.y<0||h.x>=cells||h.y>=cells||snake.some(p=>p.x===h.x&&p.y===h.y)){clearInterval(timer);ctx.fillStyle='rgba(0,0,0,.58)';ctx.fillRect(0,0,360,360);ctx.fillStyle='#fff';ctx.font='700 28px Inter';ctx.textAlign='center';ctx.fillText('Game Over',180,175);ctx.font='16px Inter';ctx.fillText('Score '+score,180,205);return}snake.unshift(h);if(h.x===food.x&&h.y===food.y){score++;$('#snakeScore').textContent=score;if(score>gameBest.snake){gameBest.snake=score;localStorage.setItem('yanSnakeBest',score);drawGameBest()}spawn()}else snake.pop();draw()};
+    document.onkeydown=e=>{const k={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right'}[e.key];if(k){e.preventDefault();turn(k)}};$$('.snake-controls button').forEach(b=>b.onclick=()=>turn(b.dataset.d));$('#snakeRestart').onclick=start;start();
+  });
+}
+function reactionGame(){
+  gameModal('⚡ Reaction Test',`<div class="game-hud"><b>Reaction Test</b><span>Best: ${gameBest.reaction?gameBest.reaction+' ms':'-'}</span></div><button id="reactionPad" class="reaction-pad">Klik untuk mulai</button><p class="game-note">Setelah mulai: tunggu sampai hijau, baru klik.</p>`,()=>{
+    const pad=$('#reactionPad');let state='idle',readyAt=0,timer;
+    pad.onclick=()=>{if(state==='idle'||state==='done'){state='wait';pad.className='reaction-pad waiting';pad.textContent='Tunggu...';timer=setTimeout(()=>{state='go';readyAt=performance.now();pad.className='reaction-pad go';pad.textContent='KLIK SEKARANG!'},1200+Math.random()*2800)}else if(state==='wait'){clearTimeout(timer);state='done';pad.className='reaction-pad early';pad.textContent='Kepagian 😭 Klik untuk coba lagi'}else if(state==='go'){const ms=Math.round(performance.now()-readyAt);state='done';pad.className='reaction-pad';pad.textContent=ms+' ms — klik untuk ulang';if(!gameBest.reaction||ms<gameBest.reaction){gameBest.reaction=ms;localStorage.setItem('yanReactionBest',ms);drawGameBest()}}};
+  });
+}
+function aimGame(){
+  gameModal('🎯 Aim Trainer',`<div class="game-hud"><b>Score: <span id="aimScore">0</span></b><span>Waktu: <span id="aimTime">20</span>s • Best: ${gameBest.aim}</span></div><div id="aimArena" class="aim-arena"><button id="aimStart" class="btn primary">Mulai Game</button></div>`,()=>{
+    const arena=$('#aimArena');let score=0,left=20,timer;
+    const target=()=>{arena.innerHTML='<button class="aim-target" aria-label="target"></button>';const t=arena.firstElementChild,maxX=arena.clientWidth-54,maxY=arena.clientHeight-54;t.style.left=Math.max(0,Math.random()*maxX)+'px';t.style.top=Math.max(0,Math.random()*maxY)+'px';t.onclick=()=>{score++;$('#aimScore').textContent=score;target()}};
+    $('#aimStart').onclick=()=>{score=0;left=20;$('#aimScore').textContent=0;target();timer=setInterval(()=>{left--;$('#aimTime').textContent=left;if(left<=0){clearInterval(timer);arena.innerHTML='<div class="aim-finish"><b>Selesai! 🎯</b><span>Score kamu: '+score+'</span><button id="aimAgain" class="btn primary">Main Lagi</button></div>';if(score>gameBest.aim){gameBest.aim=score;localStorage.setItem('yanAimBest',score);drawGameBest()}$('#aimAgain').onclick=aimGame}},1000)};
+  });
+}
+$$('.play-game').forEach(b=>b.onclick=()=>({snake:snakeGame,reaction:reactionGame,aim:aimGame}[b.dataset.game]()));
