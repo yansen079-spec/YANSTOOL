@@ -225,3 +225,18 @@ dialog::backdrop{
 .image-result{display:grid;grid-template-columns:minmax(100px,180px) 1fr;align-items:center;gap:18px}.image-result img{width:100%;max-height:180px;object-fit:contain;background:repeating-conic-gradient(color-mix(in srgb,var(--muted) 10%,transparent) 0 25%,transparent 0 50%) 50%/18px 18px;border:1px solid var(--line)}.image-download{margin-top:12px}
 input[type="range"]{accent-color:var(--accent)}
 @media(max-width:560px){.image-result{grid-template-columns:1fr}.image-result img{max-height:220px}}
+
+/* Basic Calculator */
+.basic-calculator{max-width:420px;margin:0 auto;outline:none}
+.calc-screen{padding:18px 18px 14px;margin-bottom:12px;border:1px solid var(--line);border-radius:16px;background:var(--surface-2);text-align:right;overflow:hidden}
+.calc-screen small{display:block;min-height:20px;color:var(--muted);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#bcDisplay{font-size:34px;font-weight:750;line-height:1.25;word-break:break-all}
+.calc-keypad{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.calc-keypad button{min-height:54px;border:1px solid var(--line);border-radius:14px;background:var(--surface-2);color:var(--text);font:inherit;font-size:17px;font-weight:650;cursor:pointer}
+.calc-keypad button:hover{border-color:var(--accent);transform:translateY(-1px)}
+.calc-keypad button:active{transform:translateY(0)}
+.calc-keypad .calc-op,.calc-keypad .calc-equals{background:var(--accent);border-color:var(--accent);color:#fff}
+.calc-keypad .calc-fn{background:var(--accent-soft);color:var(--accent)}
+.calc-copy-result{margin-top:12px}
+.calc-hint{display:block;margin-top:9px;color:var(--muted);text-align:center;line-height:1.5}
+@media(max-width:480px){#bcDisplay{font-size:30px}.calc-keypad button{min-height:50px}}
