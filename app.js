@@ -60,8 +60,8 @@ async function getYanClipperEngine(){
   ]);
   const ffmpeg=new FFmpeg();
   ffmpeg.on('progress',({progress})=>{if(yanClipProgress)yanClipProgress(Math.max(0,Math.min(1,progress||0)))});
-  const core='https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.6/dist/umd';
-  const worker='https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.10/dist/umd/814.ffmpeg.js';
+  const core='https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.6/dist/esm';
+  const worker='https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.10/dist/esm/worker.js';
   await ffmpeg.load({
     coreURL:await toBlobURL(core+'/ffmpeg-core.js','text/javascript'),
     wasmURL:await toBlobURL(core+'/ffmpeg-core.wasm','application/wasm'),
