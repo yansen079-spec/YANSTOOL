@@ -259,3 +259,5 @@ input[type="range"]{accent-color:var(--accent)}
 .countdown-grid .countdown-full{grid-column:1 / -1}
 .countdown-grid input{width:100%;min-width:0}
 @media(max-width:640px){.countdown-grid{grid-template-columns:1fr}.countdown-grid .countdown-full{grid-column:auto}}
+
+.countdown-grid textarea{width:100%;min-width:0;resize:vertical;min-height:110px;line-height:1.5}
