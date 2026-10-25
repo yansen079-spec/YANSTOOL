@@ -240,3 +240,15 @@ input[type="range"]{accent-color:var(--accent)}
 .calc-copy-result{margin-top:12px}
 .calc-hint{display:block;margin-top:9px;color:var(--muted);text-align:center;line-height:1.5}
 @media(max-width:480px){#bcDisplay{font-size:30px}.calc-keypad button{min-height:50px}}
+
+/* Auto Video Clipper */
+.video-clip-note{margin:10px 0 14px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);color:var(--muted);font-size:13px;line-height:1.55}
+.video-progress{height:8px;margin:10px 0 7px;overflow:hidden;border-radius:999px;background:var(--surface-2)}
+.video-progress i{display:block;height:100%;border-radius:inherit;background:var(--accent);transition:width .2s ease}
+.video-clip-list{display:grid;gap:12px;margin-top:14px}
+.video-clip-item{display:grid;grid-template-columns:minmax(0,160px) 1fr;gap:12px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:14px;background:var(--surface-2)}
+.video-clip-item video{display:block;width:100%;max-height:120px;border-radius:10px;background:#000}
+.video-clip-item>div{display:grid;gap:6px;min-width:0}
+.video-clip-item small{color:var(--muted)}
+.video-clip-item .btn{justify-self:start;text-decoration:none}
+@media(max-width:560px){.video-clip-item{grid-template-columns:1fr}.video-clip-item video{max-height:220px}.video-clip-item .btn{width:100%;justify-content:center}}
