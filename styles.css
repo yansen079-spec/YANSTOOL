@@ -252,3 +252,10 @@ input[type="range"]{accent-color:var(--accent)}
 .video-clip-item small{color:var(--muted)}
 .video-clip-item .btn{justify-self:start;text-decoration:none}
 @media(max-width:560px){.video-clip-item{grid-template-columns:1fr}.video-clip-item video{max-height:220px}.video-clip-item .btn{width:100%;justify-content:center}}
+
+/* Countdown Calculator layout */
+.countdown-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px 16px}
+.countdown-grid .field{min-width:0;margin:0}
+.countdown-grid .countdown-full{grid-column:1 / -1}
+.countdown-grid input{width:100%;min-width:0}
+@media(max-width:640px){.countdown-grid{grid-template-columns:1fr}.countdown-grid .countdown-full{grid-column:auto}}
