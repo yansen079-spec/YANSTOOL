@@ -33,7 +33,7 @@ function show(name,html,setup){
     setTimeout(()=>copyBtn.textContent='📋 Copy Result',1400);
   };
   resetBtn.onclick=()=>{
-    const activeTool=[...$('.open-tool')].find(b=>b.dataset.tool&&tools[b.dataset.tool]&&title.textContent===b.closest('.card')?.querySelector('h3')?.textContent);
+    const activeTool=$('.open-tool').find(b=>b.dataset.tool&&tools[b.dataset.tool]&&title.textContent===b.closest('.card')?.querySelector('h3')?.textContent);
     if(activeTool){dlg.close();tools[activeTool.dataset.tool]();return}
     body.querySelectorAll('input,textarea').forEach(el=>{if(el.type==='checkbox'||el.type==='radio')el.checked=el.defaultChecked;else el.value=el.defaultValue});
     body.querySelectorAll('select').forEach(el=>el.selectedIndex=0);
